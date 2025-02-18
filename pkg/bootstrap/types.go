@@ -32,6 +32,7 @@ type OVNConfigBoostrapResult struct {
 	SmartNicModeLabel     string
 	SmartNicModeNodes     []string
 	MgmtPortResourceName  string
+	GatewayInterface      string
 }
 
 // OVNUpdateStatus contains the status of existing daemonset

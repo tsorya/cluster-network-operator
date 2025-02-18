@@ -209,6 +209,7 @@ func renderOVNKubernetes(conf *operv1.NetworkSpec, bootstrapResult *bootstrap.Bo
 	data.Data["DpuModeLabel"] = bootstrapResult.OVN.OVNKubernetesConfig.DpuModeLabel
 	data.Data["SmartNicModeLabel"] = bootstrapResult.OVN.OVNKubernetesConfig.SmartNicModeLabel
 	data.Data["MgmtPortResourceName"] = bootstrapResult.OVN.OVNKubernetesConfig.MgmtPortResourceName
+	data.Data["GatewayInterface"] = bootstrapResult.OVN.OVNKubernetesConfig.GatewayInterface
 	data.Data["OVN_CONTROLLER_INACTIVITY_PROBE"] = os.Getenv("OVN_CONTROLLER_INACTIVITY_PROBE")
 	controller_inactivity_probe := os.Getenv("OVN_CONTROLLER_INACTIVITY_PROBE")
 	if len(controller_inactivity_probe) == 0 {
@@ -455,6 +456,7 @@ func renderOVNKubernetes(conf *operv1.NetworkSpec, bootstrapResult *bootstrap.Bo
 		if err != nil {
 			return nil, progressing, errors.Wrap(err, "failed to render manifests for dpu-host")
 		}
+		klog.Infof("AAAAA ovn %s", manifests)
 		objs = append(objs, manifests...)
 	}
 
@@ -826,6 +828,11 @@ func bootstrapOVNConfig(conf *operv1.Network, kubeClient cnoclient.Client, hc *h
 		mgmtPortresourceName, exists := cm.Data["mgmt-port-resource-name"]
 		if exists {
 			ovnConfigResult.MgmtPortResourceName = mgmtPortresourceName
+		}
+
+		gatewayInterfaceName, exists := cm.Data["gateway-interface"]
+		if exists {
+			ovnConfigResult.GatewayInterface = gatewayInterfaceName
 		}
 	}
 

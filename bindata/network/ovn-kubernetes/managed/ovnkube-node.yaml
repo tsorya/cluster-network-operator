@@ -673,14 +673,14 @@ spec:
       - name: run-openvswitch
         hostPath:
           path: /var/run/openvswitch
+      - name: node-log
+        hostPath:
+          path: /var/log/ovn
       - name: run-ovn
         hostPath:
           path: /var/run/ovn-ic  # different path than 4.13 and single-zone 4.14 to avoid collision during upgrade
       {{ if or (eq .OVN_NODE_MODE "full") (eq .OVN_NODE_MODE "smart-nic") }}
       # Used for placement of ACL audit logs
-      - name: node-log
-        hostPath:
-          path: /var/log/ovn
       - name: log-socket
         hostPath:
           path: /dev/log
