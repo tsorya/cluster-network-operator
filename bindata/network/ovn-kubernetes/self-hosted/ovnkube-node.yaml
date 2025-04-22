@@ -562,6 +562,10 @@ spec:
         - name: OVNKUBE_NODE_MGMT_PORT_DP_RESOURCE_NAME
           value: {{ .MgmtPortResourceName }}
         {{ end }}
+        {{ if and (.GatewayInterface) (or (eq .OVN_NODE_MODE "smart-nic") (eq .OVN_NODE_MODE "dpu-host")) }}
+        - name: OVNKUBE_NODE_GATEWAY_INTERFACE
+          value: {{ .GatewayInterface }}
+        {{ end }}
         - name: K8S_NODE
           valueFrom:
             fieldRef:

@@ -3973,6 +3973,10 @@ func boolPtr(x bool) *bool {
 	return &x
 }
 
+type simpleCNOClient struct{ crclient.Reader }
+
+func (s *simpleCNOClient) ClientFor(_ string) crclient.Reader { return s.Reader }
+
 func networkOwnerRef() []metav1.OwnerReference {
 	isController := true
 	return []metav1.OwnerReference{{APIVersion: operv1.GroupVersion.String(), Kind: "Network", Controller: &isController, Name: "cluster"}}
@@ -4084,6 +4088,131 @@ func Test_renderOVNKubernetes(t *testing.T) {
 				t.Errorf("renderOVNKubernetes() err = %v, want %v", err, tt.expectErr)
 			}
 			assert.Equalf(t, tt.expectNumObjs, len(got), "renderOVNKubernetes() got %d objects, want %d", len(got), tt.expectNumObjs)
+		})
+	}
+}
+
+func TestBootstrapOVNConfig_GatewayInterface(t *testing.T) {
+	testCases := []struct {
+		name              string
+		gatewayInterface  string
+		hypershiftEnabled bool
+		dpuNodeExists     bool
+		expectedValue     v1.EnvVar
+	}{
+		{
+			name:              "gateway-interface set in configmap",
+			gatewayInterface:  "eth99",
+			hypershiftEnabled: false,
+			dpuNodeExists:     true,
+			expectedValue:     v1.EnvVar{Name: "OVNKUBE_NODE_GATEWAY_INTERFACE", Value: "eth99"},
+		},
+		{
+			name:              "gateway-interface not set in configmap",
+			gatewayInterface:  "",
+			hypershiftEnabled: false,
+			dpuNodeExists:     true,
+			expectedValue:     v1.EnvVar{Name: "OVNKUBE_NODE_GATEWAY_INTERFACE", Value: ""},
+		},
+		{
+			name:              "gateway-interface set in configmap with hypershift enabled",
+			gatewayInterface:  "eth99",
+			hypershiftEnabled: true,
+			dpuNodeExists:     true,
+			expectedValue:     v1.EnvVar{Name: "OVNKUBE_NODE_GATEWAY_INTERFACE", Value: "eth99"},
+		},
+		{
+			name:              "gateway-interface not set in configmap with hypershift enabled",
+			gatewayInterface:  "",
+			hypershiftEnabled: true,
+			dpuNodeExists:     true,
+			expectedValue:     v1.EnvVar{Name: "OVNKUBE_NODE_GATEWAY_INTERFACE", Value: ""},
+		},
+		{
+			name:              "gateway-interface set in configmap with no dpu nodes, should not set env var",
+			gatewayInterface:  "eth99",
+			hypershiftEnabled: false,
+			dpuNodeExists:     false,
+			expectedValue:     v1.EnvVar{Name: "OVNKUBE_NODE_GATEWAY_INTERFACE", Value: "eth99"},
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			RegisterTestingT(t)
+			g := NewGomegaWithT(t)
+
+			crd := OVNKubernetesConfig.DeepCopy()
+			config := &crd.Spec
+
+			errs := validateOVNKubernetes(config)
+			g.Expect(errs).To(HaveLen(0))
+			fillDefaults(config, nil)
+
+			bootstrapResult := fakeBootstrapResult()
+			bootstrapResult.OVN = bootstrap.OVNBootstrapResult{
+				ControlPlaneReplicaCount: 3,
+			}
+			hc := &hypershift.HyperShiftConfig{
+				Enabled: tc.hypershiftEnabled,
+			}
+			if tc.hypershiftEnabled {
+				bootstrapResult.Infra = fakeBootstrapResultWithHyperShift().Infra
+			}
+
+			bootstrapResult.Infra.HostedControlPlane = &hypershift.HostedControlPlane{}
+			// Prepare ConfigMap for gateway-interface
+			cm := &v1.ConfigMap{Data: map[string]string{},
+				ObjectMeta: metav1.ObjectMeta{
+					Namespace: "openshift-network-operator",
+					Name:      "hardware-offload-config"},
+			}
+			if tc.gatewayInterface != "" {
+				cm.Data["gateway-interface"] = tc.gatewayInterface
+			}
+			fakeClient := cnofake.NewFakeClient(cm)
+			// Prepare minimal valid config and bootstrapResult
+			ovnBootstrapResult, err := bootstrapOVNConfig(crd, fakeClient, hc, &bootstrapResult.Infra)
+			g.Expect(err).ToNot(HaveOccurred())
+			g.Expect(ovnBootstrapResult.GatewayInterface).To(Equal(tc.gatewayInterface))
+
+			bootstrapResult.OVN.OVNKubernetesConfig = ovnBootstrapResult
+			if tc.dpuNodeExists {
+				bootstrapResult.OVN.OVNKubernetesConfig.DpuHostModeNodes = []string{"node1", "node2"}
+			}
+
+			featureGatesCNO := getDefaultFeatureGates()
+
+			// Render manifests, including 008-script-lib.yaml
+			objs, progressing, err := renderOVNKubernetes(config, bootstrapResult, manifestDirOvn, fakeClient, featureGatesCNO)
+			g.Expect(err).ToNot(HaveOccurred())
+			g.Expect(progressing).To(BeFalse())
+
+			daemonsetName := "ovnkube-node-dpu-host"
+			if !tc.dpuNodeExists {
+				daemonsetName = "ovnkube-node"
+			}
+			nodeDS := findInObjs("apps", "DaemonSet", daemonsetName, "openshift-ovn-kubernetes", objs)
+			ds := appsv1.DaemonSet{}
+			g.Expect(convert(nodeDS, &ds)).To(Succeed())
+
+			nodeCont, ok := findContainer(ds.Spec.Template.Spec.Containers, "ovnkube-controller")
+			g.Expect(ok).To(BeTrue(), "expecting container named ovnkube-controller in the DaemonSet")
+			if tc.gatewayInterface != "" && tc.dpuNodeExists {
+				g.Expect(nodeCont.Env).To(ContainElements(tc.expectedValue))
+			} else {
+				g.Expect(nodeCont.Env).ToNot(ContainElement(tc.expectedValue))
+			}
+
+			// Find the rendered ConfigMap for 008-script-lib.yaml
+			cmObj := findInObjs("", "ConfigMap", "ovnkube-script-lib", "openshift-ovn-kubernetes", objs)
+			g.Expect(cmObj).NotTo(BeNil())
+			var renderedCM v1.ConfigMap
+			g.Expect(convert(cmObj, &renderedCM)).To(Succeed())
+			// Validate that the rendered script contains the correct GatewayInterface
+			script, ok := renderedCM.Data["ovnkube-lib.sh"]
+			g.Expect(ok).To(BeTrue())
+			g.Expect(script).To(ContainSubstring(tc.expectedValue.Name))
 		})
 	}
 }

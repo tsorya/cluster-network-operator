@@ -456,7 +456,6 @@ func renderOVNKubernetes(conf *operv1.NetworkSpec, bootstrapResult *bootstrap.Bo
 		if err != nil {
 			return nil, progressing, errors.Wrap(err, "failed to render manifests for dpu-host")
 		}
-		klog.Infof("AAAAA ovn %s", manifests)
 		objs = append(objs, manifests...)
 	}
 
@@ -790,6 +789,7 @@ func bootstrapOVNConfig(conf *operv1.Network, kubeClient cnoclient.Client, hc *h
 		DpuModeLabel:         OVN_NODE_SELECTOR_DEFAULT_DPU,
 		SmartNicModeLabel:    OVN_NODE_SELECTOR_DEFAULT_SMART_NIC,
 		MgmtPortResourceName: "",
+		GatewayInterface:     "",
 	}
 	if conf.Spec.DefaultNetwork.OVNKubernetesConfig.GatewayConfig == nil {
 		bootstrapOVNGatewayConfig(conf, kubeClient.ClientFor("").CRClient())
