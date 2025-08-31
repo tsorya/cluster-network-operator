@@ -326,12 +326,20 @@ func renderOVNKubernetes(conf *operv1.NetworkSpec, bootstrapResult *bootstrap.Bo
 	}
 
 	// leverage feature gates
+	// Detect if DPU host mode is enabled cluster-wide
+	dpuHostModeEnabled := bootstrapResult.OVN.OVNKubernetesConfig.DpuHostModeEnabled
+
+	// Single flag to control all DPU-incompatible features
+	data.Data["DPU_HOST_MODE_ENABLED"] = dpuHostModeEnabled
+
+	// Feature gates
 	data.Data["OVN_ADMIN_NETWORK_POLICY_ENABLE"] = featureGates.Enabled(apifeatures.FeatureGateAdminNetworkPolicy)
 	data.Data["DNS_NAME_RESOLVER_ENABLE"] = featureGates.Enabled(apifeatures.FeatureGateDNSNameResolver)
 	data.Data["OVN_NETWORK_SEGMENTATION_ENABLE"] = featureGates.Enabled(apifeatures.FeatureGateNetworkSegmentation)
 	data.Data["OVN_OBSERVABILITY_ENABLE"] = featureGates.Enabled(apifeatures.FeatureGateOVNObservability)
 	data.Data["OVN_ROUTE_ADVERTISEMENTS_ENABLE"] = c.RouteAdvertisements == operv1.RouteAdvertisementsEnabled
 	data.Data["OVN_PRE_CONF_UDN_ADDR_ENABLE"] = featureGates.Enabled(apifeatures.FeatureGatePreconfiguredUDNAddresses)
+	data.Data["OVN_MULTICAST_ENABLE"] = true
 
 	data.Data["ReachabilityTotalTimeoutSeconds"] = c.EgressIPConfig.ReachabilityTotalTimeoutSeconds
 
@@ -380,6 +388,16 @@ func renderOVNKubernetes(conf *operv1.NetworkSpec, bootstrapResult *bootstrap.Bo
 		// Multi-network policy support requires multi-network support to be
 		// enabled
 		data.Data["OVN_MULTI_NETWORK_POLICY_ENABLE"] = true
+	}
+
+	// Disable all DPU-incompatible features when DPU host mode enabled
+	if dpuHostModeEnabled {
+		// Disable feature gates that are incompatible with DPU
+		data.Data["OVN_ADMIN_NETWORK_POLICY_ENABLE"] = false
+		data.Data["OVN_NETWORK_SEGMENTATION_ENABLE"] = false
+		data.Data["OVN_MULTI_NETWORK_ENABLE"] = false
+		data.Data["OVN_MULTI_NETWORK_POLICY_ENABLE"] = false
+		data.Data["OVN_MULTICAST_ENABLE"] = false
 	}
 
 	//there only needs to be two cluster managers
@@ -853,17 +871,17 @@ func bootstrapOVNConfig(conf *operv1.Network, kubeClient cnoclient.Client, hc *h
 	}
 
 	// We want to see if there are any nodes that are labeled for specific modes.
-	ovnConfigResult.DpuHostModeNodes, err = getNodeListByLabel(kubeClient, ovnConfigResult.DpuHostModeLabel+"=")
+	ovnConfigResult.DpuHostModeNodes, err = getNodeListByLabel(kubeClient, ovnConfigResult.DpuHostModeLabel)
 	if err != nil {
 		return nil, fmt.Errorf("Could not get node list with label %s : %w", ovnConfigResult.DpuHostModeLabel, err)
 	}
 
-	ovnConfigResult.DpuModeNodes, err = getNodeListByLabel(kubeClient, ovnConfigResult.DpuModeLabel+"=")
+	ovnConfigResult.DpuModeNodes, err = getNodeListByLabel(kubeClient, ovnConfigResult.DpuModeLabel)
 	if err != nil {
 		return nil, fmt.Errorf("Could not get node list with label %s : %w", ovnConfigResult.DpuModeLabel, err)
 	}
 
-	ovnConfigResult.SmartNicModeNodes, err = getNodeListByLabel(kubeClient, ovnConfigResult.SmartNicModeLabel+"=")
+	ovnConfigResult.SmartNicModeNodes, err = getNodeListByLabel(kubeClient, ovnConfigResult.SmartNicModeLabel)
 	if err != nil {
 		return nil, fmt.Errorf("Could not get node list with label %s : %w", ovnConfigResult.SmartNicModeLabel, err)
 	}
@@ -877,6 +895,12 @@ func bootstrapOVNConfig(conf *operv1.Network, kubeClient cnoclient.Client, hc *h
 	ovnConfigResult.ConfigOverrides, err = getOVNKubernetesConfigOverrides(kubeClient)
 	if err != nil {
 		return nil, fmt.Errorf("Could not get OVN Kubernetes config overrides: %w", err)
+	}
+
+	// Detect if DPU nodes are present in cluster
+	ovnConfigResult.DpuHostModeEnabled = len(ovnConfigResult.DpuModeNodes) > 0
+	if ovnConfigResult.DpuHostModeEnabled {
+		klog.Infof("DPU host mode enabled - DPU-incompatible features will be disabled cluster-wide (%d DPU nodes found)", len(ovnConfigResult.DpuModeNodes))
 	}
 
 	klog.Infof("OVN configuration is now %+v", ovnConfigResult)
