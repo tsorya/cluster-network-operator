@@ -305,7 +305,6 @@ enable-multi-external-gateway=true
 egressip-node-healthcheck-port=9107
 enable-multi-network=true
 
-
 [gateway]
 mode=shared
 nodeport=true`,
@@ -335,17 +334,17 @@ dns-service-namespace="openshift-dns"
 dns-service-name="dns-default"
 
 [ovnkubernetesfeature]
+enable-egress-ip=true
+enable-egress-firewall=true
+enable-egress-qos=true
+enable-egress-service=true
+enable-multi-external-gateway=true
 egressip-node-healthcheck-port=9107
+enable-multi-network=true
 
 [gateway]
 mode=local
 nodeport=true
-
-[logging]
-libovsdblogfile=/var/log/ovnkube/libovsdb.log
-logfile-maxsize=100
-logfile-maxbackups=5
-logfile-maxage=0
 
 [hybridoverlay]
 enabled=true
@@ -385,18 +384,17 @@ dns-service-namespace="openshift-dns"
 dns-service-name="dns-default"
 
 [ovnkubernetesfeature]
-egressip-reachability-total-timeout=3
+enable-egress-ip=true
+enable-egress-firewall=true
+enable-egress-qos=true
+enable-egress-service=true
+enable-multi-external-gateway=true
 egressip-node-healthcheck-port=9107
+enable-multi-network=true
 
 [gateway]
 mode=local
 nodeport=true
-
-[logging]
-libovsdblogfile=/var/log/ovnkube/libovsdb.log
-logfile-maxsize=100
-logfile-maxbackups=5
-logfile-maxage=0
 
 [hybridoverlay]
 enabled=true
@@ -438,18 +436,17 @@ dns-service-namespace="openshift-dns"
 dns-service-name="dns-default"
 
 [ovnkubernetesfeature]
-egressip-reachability-total-timeout=0
+enable-egress-ip=true
+enable-egress-firewall=true
+enable-egress-qos=true
+enable-egress-service=true
+enable-multi-external-gateway=true
 egressip-node-healthcheck-port=9107
+enable-multi-network=true
 
 [gateway]
 mode=local
 nodeport=true
-
-[logging]
-libovsdblogfile=/var/log/ovnkube/libovsdb.log
-logfile-maxsize=100
-logfile-maxbackups=5
-logfile-maxage=0
 
 [hybridoverlay]
 enabled=true
@@ -491,17 +488,17 @@ dns-service-namespace="openshift-dns"
 dns-service-name="dns-default"
 
 [ovnkubernetesfeature]
+enable-egress-ip=true
+enable-egress-firewall=true
+enable-egress-qos=true
+enable-egress-service=true
+enable-multi-external-gateway=true
 egressip-node-healthcheck-port=9107
+enable-multi-network=true
 
 [gateway]
 mode=local
 nodeport=true
-
-[logging]
-libovsdblogfile=/var/log/ovnkube/libovsdb.log
-logfile-maxsize=100
-logfile-maxbackups=5
-logfile-maxage=0
 
 [hybridoverlay]
 enabled=true
@@ -543,17 +540,17 @@ dns-service-namespace="openshift-dns"
 dns-service-name="dns-default"
 
 [ovnkubernetesfeature]
+enable-egress-ip=true
+enable-egress-firewall=true
+enable-egress-qos=true
+enable-egress-service=true
+enable-multi-external-gateway=true
 egressip-node-healthcheck-port=9107
+enable-multi-network=true
 
 [gateway]
 mode=shared
 nodeport=true
-
-[logging]
-libovsdblogfile=/var/log/ovnkube/libovsdb.log
-logfile-maxsize=100
-logfile-maxbackups=5
-logfile-maxage=0
 
 [hybridoverlay]
 enabled=true`,
@@ -584,17 +581,17 @@ dns-service-namespace="openshift-dns"
 dns-service-name="dns-default"
 
 [ovnkubernetesfeature]
+enable-egress-ip=true
+enable-egress-firewall=true
+enable-egress-qos=true
+enable-egress-service=true
+enable-multi-external-gateway=true
 egressip-node-healthcheck-port=9107
+enable-multi-network=true
 
 [gateway]
 mode=shared
 nodeport=true
-
-[logging]
-libovsdblogfile=/var/log/ovnkube/libovsdb.log
-logfile-maxsize=100
-logfile-maxbackups=5
-logfile-maxage=0
 
 [clustermgrha]
 election-lease-duration=137
@@ -628,17 +625,19 @@ dns-service-namespace="openshift-dns"
 dns-service-name="dns-default"
 
 [ovnkubernetesfeature]
+enable-egress-ip=true
+enable-egress-firewall=true
+enable-egress-qos=true
+enable-egress-service=true
+enable-multi-external-gateway=true
 egressip-node-healthcheck-port=9107
+enable-multi-network=true
 
 [gateway]
 mode=shared
 nodeport=true
 
-[logging]
-libovsdblogfile=/var/log/ovnkube/libovsdb.log
-logfile-maxsize=100
-logfile-maxbackups=5
-logfile-maxage=0`,
+`,
 			controlPlaneReplicaCount: 2,
 			disableGRO:               true,
 		},
@@ -665,17 +664,18 @@ dns-service-namespace="openshift-dns"
 dns-service-name="dns-default"
 
 [ovnkubernetesfeature]
+enable-egress-ip=true
+enable-egress-firewall=true
+enable-egress-qos=true
+enable-egress-service=true
+enable-multi-external-gateway=true
 egressip-node-healthcheck-port=9107
 
 [gateway]
 mode=shared
 nodeport=true
 
-[logging]
-libovsdblogfile=/var/log/ovnkube/libovsdb.log
-logfile-maxsize=100
-logfile-maxbackups=5
-logfile-maxage=0`,
+`,
 			controlPlaneReplicaCount: 2,
 
 			disableMultiNet: true,
@@ -703,18 +703,21 @@ dns-service-namespace="openshift-dns"
 dns-service-name="dns-default"
 
 [ovnkubernetesfeature]
+enable-egress-ip=true
+enable-egress-firewall=true
+enable-egress-qos=true
+enable-egress-service=true
+enable-multi-external-gateway=true
 egressip-node-healthcheck-port=9107
+enable-multi-network=true
 enable-multi-networkpolicy=true
+enable-admin-network-policy=true
 
 [gateway]
 mode=shared
 nodeport=true
 
-[logging]
-libovsdblogfile=/var/log/ovnkube/libovsdb.log
-logfile-maxsize=100
-logfile-maxbackups=5
-logfile-maxage=0`,
+`,
 			controlPlaneReplicaCount: 2,
 
 			enableMultiNetPolicies: true,
@@ -743,18 +746,20 @@ dns-service-namespace="openshift-dns"
 dns-service-name="dns-default"
 
 [ovnkubernetesfeature]
+enable-egress-ip=true
+enable-egress-firewall=true
+enable-egress-qos=true
+enable-egress-service=true
+enable-multi-external-gateway=true
 egressip-node-healthcheck-port=9107
+enable-multi-network=true
 enable-network-segmentation=true
 
 [gateway]
 mode=shared
 nodeport=true
 
-[logging]
-libovsdblogfile=/var/log/ovnkube/libovsdb.log
-logfile-maxsize=100
-logfile-maxbackups=5
-logfile-maxage=0`,
+`,
 			controlPlaneReplicaCount: 2,
 			enabledFeatureGates:      []configv1.FeatureGateName{apifeatures.FeatureGateNetworkSegmentation},
 		},
@@ -781,17 +786,19 @@ dns-service-namespace="openshift-dns"
 dns-service-name="dns-default"
 
 [ovnkubernetesfeature]
+enable-egress-ip=true
+enable-egress-firewall=true
+enable-egress-qos=true
+enable-egress-service=true
+enable-multi-external-gateway=true
 egressip-node-healthcheck-port=9107
+enable-admin-network-policy=true
 
 [gateway]
 mode=shared
 nodeport=true
 
-[logging]
-libovsdblogfile=/var/log/ovnkube/libovsdb.log
-logfile-maxsize=100
-logfile-maxbackups=5
-logfile-maxage=0`,
+`,
 			controlPlaneReplicaCount: 2,
 			disableMultiNet:          true,
 			enableMultiNetPolicies:   true,
@@ -858,7 +865,13 @@ dns-service-namespace="openshift-dns"
 dns-service-name="dns-default"
 
 [ovnkubernetesfeature]
+enable-egress-ip=true
+enable-egress-firewall=true
+enable-egress-qos=true
+enable-egress-service=true
+enable-multi-external-gateway=true
 egressip-node-healthcheck-port=9107
+enable-multi-network=true
 enable-network-segmentation=true
 enable-preconfigured-udn-addresses=true
 
@@ -3883,8 +3896,30 @@ func findInObjs(group, kind, name, namespace string, objs []*uns.Unstructured) *
 }
 
 func extractOVNKubeConfig(g *WithT, objs []*uns.Unstructured) string {
+	// Prefer node namespace ConfigMap when present
+	for _, obj := range objs {
+		if obj.GetKind() == "ConfigMap" && obj.GetName() == "ovnkube-config" && obj.GetNamespace() == "openshift-ovn-kubernetes" {
+			val, ok, err := uns.NestedString(obj.Object, "data", "ovnkube.conf")
+			g.Expect(err).NotTo(HaveOccurred())
+			g.Expect(ok).To(BeTrue())
+			return val
+		}
+	}
+	// Fallback to any ovnkube-config
 	for _, obj := range objs {
 		if obj.GetKind() == "ConfigMap" && obj.GetName() == "ovnkube-config" {
+			val, ok, err := uns.NestedString(obj.Object, "data", "ovnkube.conf")
+			g.Expect(err).NotTo(HaveOccurred())
+			g.Expect(ok).To(BeTrue())
+			return val
+		}
+	}
+	return ""
+}
+
+func extractHostedOVNKubeConfig(g *WithT, objs []*uns.Unstructured) string {
+	for _, obj := range objs {
+		if obj.GetKind() == "ConfigMap" && obj.GetName() == "ovnkube-config" && obj.GetNamespace() != "openshift-ovn-kubernetes" {
 			val, ok, err := uns.NestedString(obj.Object, "data", "ovnkube.conf")
 			g.Expect(err).NotTo(HaveOccurred())
 			g.Expect(ok).To(BeTrue())

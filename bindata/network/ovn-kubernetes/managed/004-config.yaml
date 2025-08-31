@@ -166,7 +166,6 @@ data:
     mode={{.OVN_GATEWAY_MODE}}
     nodeport=true
 
-
     [logging]
     libovsdblogfile=/var/log/ovnkube/libovsdb.log
     logfile-maxsize=100
