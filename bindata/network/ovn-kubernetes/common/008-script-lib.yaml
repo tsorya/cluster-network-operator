@@ -575,12 +575,12 @@ data:
       fi
 
       multi_network_enabled_flag=
-      if [[ "{{.OVN_MULTI_NETWORK_ENABLE}}" == "true" && "${OVN_NODE_MODE}" != "dpu-host" ]]; then
+      if [[ "{{.OVN_MULTI_NETWORK_ENABLE}}" == "true" ]]; then
         multi_network_enabled_flag="--enable-multi-network"
       fi
 
       network_segmentation_enabled_flag=
-      if [[ "{{.OVN_NETWORK_SEGMENTATION_ENABLE}}" == "true" && "${OVN_NODE_MODE}" != "dpu-host" ]]; then
+      if [[ "{{.OVN_NETWORK_SEGMENTATION_ENABLE}}" == "true" ]]; then
         multi_network_enabled_flag="--enable-multi-network"
         network_segmentation_enabled_flag="--enable-network-segmentation"
       fi
@@ -601,12 +601,12 @@ data:
       fi
 
       multi_network_policy_enabled_flag=
-      if [[ "{{.OVN_MULTI_NETWORK_POLICY_ENABLE}}" == "true"&& "${OVN_NODE_MODE}" != "dpu-host" ]]; then
+      if [[ "{{.OVN_MULTI_NETWORK_POLICY_ENABLE}}" == "true" ]]; then
         multi_network_policy_enabled_flag="--enable-multi-networkpolicy"
       fi
 
       admin_network_policy_enabled_flag=
-      if [[ "{{.OVN_ADMIN_NETWORK_POLICY_ENABLE}}" == "true" && "${OVN_NODE_MODE}" != "dpu-host" ]]; then
+      if [[ "{{.OVN_ADMIN_NETWORK_POLICY_ENABLE}}" == "true" ]]; then
         admin_network_policy_enabled_flag="--enable-admin-network-policy"
       fi
 
@@ -676,7 +676,7 @@ data:
       fi
 
       exec /usr/bin/ovnkube \
-        ${init_ovnkube_controller} \
+        --init-ovnkube-controller "${K8S_NODE}" \
         --init-node "${K8S_NODE}" \
         --config-file=/run/ovnkube-config/ovnkube.conf \
         --ovn-empty-lb-events \
@@ -684,7 +684,9 @@ data:
         --inactivity-probe="${OVN_CONTROLLER_INACTIVITY_PROBE}" \
         ${gateway_mode_flags} \
         ${node_mgmt_port_netdev_flags} \
-        ${ovnkube_node_mode} \
+{{- if eq .OVN_NODE_MODE "dpu-host" }}
+        --ovnkube-node-mode dpu-host \
+{{- end }}
         --metrics-bind-address "127.0.0.1:${metrics_port}" \
         --ovn-metrics-bind-address "127.0.0.1:${ovn_metrics_port}" \
         --metrics-enable-pprof \
@@ -700,7 +702,7 @@ data:
         ${admin_network_policy_enabled_flag} \
         ${dns_name_resolver_enabled_flag} \
         ${network_observability_enabled_flag} \
-        ${enable_multicast_flag} \
+        --enable-multicast \
         --zone ${K8S_NODE} \
         --enable-interconnect \
         --acl-logging-rate-limit "{{.OVNPolicyAuditRateLimit}}" \

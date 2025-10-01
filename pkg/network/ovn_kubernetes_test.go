@@ -36,6 +36,7 @@ import (
 	cnofake "github.com/openshift/cluster-network-operator/pkg/client/fake"
 	"github.com/openshift/cluster-network-operator/pkg/hypershift"
 	"github.com/openshift/cluster-network-operator/pkg/names"
+	"github.com/openshift/cluster-network-operator/pkg/render"
 )
 
 var (
@@ -301,9 +302,15 @@ enable-egress-ip=true
 enable-egress-firewall=true
 enable-egress-qos=true
 enable-egress-service=true
+<<<<<<< HEAD
 enable-multi-external-gateway=true
 egressip-node-healthcheck-port=9107
 enable-multi-network=true
+=======
+egressip-node-healthcheck-port=9107
+enable-multi-network=true
+enable-multi-external-gateway=true
+>>>>>>> parent of c17dba59f (MGMT-21485: Enable dpu-host mode that matches DPF requirements)
 
 [gateway]
 mode=shared
@@ -338,9 +345,15 @@ enable-egress-ip=true
 enable-egress-firewall=true
 enable-egress-qos=true
 enable-egress-service=true
+<<<<<<< HEAD
 enable-multi-external-gateway=true
 egressip-node-healthcheck-port=9107
 enable-multi-network=true
+=======
+egressip-node-healthcheck-port=9107
+enable-multi-network=true
+enable-multi-external-gateway=true
+>>>>>>> parent of c17dba59f (MGMT-21485: Enable dpu-host mode that matches DPF requirements)
 
 [gateway]
 mode=local
@@ -388,9 +401,16 @@ enable-egress-ip=true
 enable-egress-firewall=true
 enable-egress-qos=true
 enable-egress-service=true
+<<<<<<< HEAD
 enable-multi-external-gateway=true
 egressip-node-healthcheck-port=9107
 enable-multi-network=true
+=======
+egressip-reachability-total-timeout=3
+egressip-node-healthcheck-port=9107
+enable-multi-network=true
+enable-multi-external-gateway=true
+>>>>>>> parent of c17dba59f (MGMT-21485: Enable dpu-host mode that matches DPF requirements)
 
 [gateway]
 mode=local
@@ -440,9 +460,16 @@ enable-egress-ip=true
 enable-egress-firewall=true
 enable-egress-qos=true
 enable-egress-service=true
+<<<<<<< HEAD
 enable-multi-external-gateway=true
 egressip-node-healthcheck-port=9107
 enable-multi-network=true
+=======
+egressip-reachability-total-timeout=0
+egressip-node-healthcheck-port=9107
+enable-multi-network=true
+enable-multi-external-gateway=true
+>>>>>>> parent of c17dba59f (MGMT-21485: Enable dpu-host mode that matches DPF requirements)
 
 [gateway]
 mode=local
@@ -492,9 +519,15 @@ enable-egress-ip=true
 enable-egress-firewall=true
 enable-egress-qos=true
 enable-egress-service=true
+<<<<<<< HEAD
 enable-multi-external-gateway=true
 egressip-node-healthcheck-port=9107
 enable-multi-network=true
+=======
+egressip-node-healthcheck-port=9107
+enable-multi-network=true
+enable-multi-external-gateway=true
+>>>>>>> parent of c17dba59f (MGMT-21485: Enable dpu-host mode that matches DPF requirements)
 
 [gateway]
 mode=local
@@ -544,9 +577,15 @@ enable-egress-ip=true
 enable-egress-firewall=true
 enable-egress-qos=true
 enable-egress-service=true
+<<<<<<< HEAD
 enable-multi-external-gateway=true
 egressip-node-healthcheck-port=9107
 enable-multi-network=true
+=======
+egressip-node-healthcheck-port=9107
+enable-multi-network=true
+enable-multi-external-gateway=true
+>>>>>>> parent of c17dba59f (MGMT-21485: Enable dpu-host mode that matches DPF requirements)
 
 [gateway]
 mode=shared
@@ -585,9 +624,15 @@ enable-egress-ip=true
 enable-egress-firewall=true
 enable-egress-qos=true
 enable-egress-service=true
+<<<<<<< HEAD
 enable-multi-external-gateway=true
 egressip-node-healthcheck-port=9107
 enable-multi-network=true
+=======
+egressip-node-healthcheck-port=9107
+enable-multi-network=true
+enable-multi-external-gateway=true
+>>>>>>> parent of c17dba59f (MGMT-21485: Enable dpu-host mode that matches DPF requirements)
 
 [gateway]
 mode=shared
@@ -629,9 +674,15 @@ enable-egress-ip=true
 enable-egress-firewall=true
 enable-egress-qos=true
 enable-egress-service=true
+<<<<<<< HEAD
 enable-multi-external-gateway=true
 egressip-node-healthcheck-port=9107
 enable-multi-network=true
+=======
+egressip-node-healthcheck-port=9107
+enable-multi-network=true
+enable-multi-external-gateway=true
+>>>>>>> parent of c17dba59f (MGMT-21485: Enable dpu-host mode that matches DPF requirements)
 
 [gateway]
 mode=shared
@@ -668,8 +719,12 @@ enable-egress-ip=true
 enable-egress-firewall=true
 enable-egress-qos=true
 enable-egress-service=true
+<<<<<<< HEAD
 enable-multi-external-gateway=true
+=======
+>>>>>>> parent of c17dba59f (MGMT-21485: Enable dpu-host mode that matches DPF requirements)
 egressip-node-healthcheck-port=9107
+enable-multi-external-gateway=true
 
 [gateway]
 mode=shared
@@ -707,11 +762,18 @@ enable-egress-ip=true
 enable-egress-firewall=true
 enable-egress-qos=true
 enable-egress-service=true
+<<<<<<< HEAD
 enable-multi-external-gateway=true
+=======
+>>>>>>> parent of c17dba59f (MGMT-21485: Enable dpu-host mode that matches DPF requirements)
 egressip-node-healthcheck-port=9107
 enable-multi-network=true
 enable-multi-networkpolicy=true
 enable-admin-network-policy=true
+<<<<<<< HEAD
+=======
+enable-multi-external-gateway=true
+>>>>>>> parent of c17dba59f (MGMT-21485: Enable dpu-host mode that matches DPF requirements)
 
 [gateway]
 mode=shared
@@ -750,10 +812,14 @@ enable-egress-ip=true
 enable-egress-firewall=true
 enable-egress-qos=true
 enable-egress-service=true
+<<<<<<< HEAD
 enable-multi-external-gateway=true
+=======
+>>>>>>> parent of c17dba59f (MGMT-21485: Enable dpu-host mode that matches DPF requirements)
 egressip-node-healthcheck-port=9107
 enable-multi-network=true
 enable-network-segmentation=true
+enable-multi-external-gateway=true
 
 [gateway]
 mode=shared
@@ -790,9 +856,15 @@ enable-egress-ip=true
 enable-egress-firewall=true
 enable-egress-qos=true
 enable-egress-service=true
+<<<<<<< HEAD
 enable-multi-external-gateway=true
 egressip-node-healthcheck-port=9107
 enable-admin-network-policy=true
+=======
+egressip-node-healthcheck-port=9107
+enable-admin-network-policy=true
+enable-multi-external-gateway=true
+>>>>>>> parent of c17dba59f (MGMT-21485: Enable dpu-host mode that matches DPF requirements)
 
 [gateway]
 mode=shared
@@ -827,7 +899,13 @@ dns-service-namespace="openshift-dns"
 dns-service-name="dns-default"
 
 [ovnkubernetesfeature]
+enable-egress-ip=true
+enable-egress-firewall=true
+enable-egress-qos=true
+enable-egress-service=true
 egressip-node-healthcheck-port=9107
+enable-multi-network=true
+enable-multi-external-gateway=true
 enable-dns-name-resolver=true
 
 [gateway]
@@ -869,11 +947,15 @@ enable-egress-ip=true
 enable-egress-firewall=true
 enable-egress-qos=true
 enable-egress-service=true
+<<<<<<< HEAD
 enable-multi-external-gateway=true
+=======
+>>>>>>> parent of c17dba59f (MGMT-21485: Enable dpu-host mode that matches DPF requirements)
 egressip-node-healthcheck-port=9107
 enable-multi-network=true
 enable-network-segmentation=true
 enable-preconfigured-udn-addresses=true
+enable-multi-external-gateway=true
 
 [gateway]
 mode=shared
@@ -3941,92 +4023,6 @@ func extractOVNScriptLib(g *WithT, objs []*uns.Unstructured) string {
 	return ""
 }
 
-// renderControlPlaneWithOverrides renders using the full render path and returns
-// the embedded startup script from the control-plane container.
-func renderControlPlaneWithOverrides(t *testing.T, variant string, overrides map[string]interface{}) string {
-	g := NewGomegaWithT(t)
-	crd := OVNKubernetesConfig.DeepCopy()
-	config := &crd.Spec
-	fillDefaults(config, nil)
-
-	bs := fakeBootstrapResult()
-	bs.OVN = bootstrap.OVNBootstrapResult{
-		ControlPlaneReplicaCount: 1,
-		OVNKubernetesConfig: &bootstrap.OVNConfigBoostrapResult{
-			DpuHostModeLabel:  OVN_NODE_SELECTOR_DEFAULT_DPU_HOST,
-			DpuModeLabel:      OVN_NODE_SELECTOR_DEFAULT_DPU,
-			SmartNicModeLabel: OVN_NODE_SELECTOR_DEFAULT_SMART_NIC,
-			HyperShiftConfig:  &bootstrap.OVNHyperShiftBootstrapResult{Enabled: false},
-			ConfigOverrides:   toStringMap(overrides),
-		},
-	}
-
-	featureGatesCNO := getDefaultFeatureGates()
-	fakeClient := cnofake.NewFakeClient()
-	objs, _, err := renderOVNKubernetes(config, bs, manifestDirOvn, fakeClient, featureGatesCNO)
-	g.Expect(err).NotTo(HaveOccurred())
-
-	var script string
-	for _, obj := range objs {
-		if obj.GetKind() == "Deployment" && obj.GetName() == "ovnkube-control-plane" && obj.GetNamespace() == "openshift-ovn-kubernetes" {
-			containers, found, err := uns.NestedSlice(obj.Object, "spec", "template", "spec", "containers")
-			g.Expect(err).NotTo(HaveOccurred())
-			g.Expect(found).To(BeTrue())
-			for _, c := range containers {
-				cm := c.(map[string]interface{})
-				if name, ok := cm["name"]; ok && (name == "ovnkube-cluster-manager" || name == "ovnkube-control-plane") {
-					command, found, err := uns.NestedSlice(cm, "command")
-					g.Expect(err).NotTo(HaveOccurred())
-					g.Expect(found).To(BeTrue())
-					g.Expect(len(command)).To(BeNumerically(">", 2))
-					script = command[2].(string)
-					break
-				}
-			}
-		}
-	}
-	g.Expect(script).NotTo(BeEmpty())
-	return script
-}
-
-// renderScriptLibWithOverrides renders using the full render path and returns
-// the ovnkube script-lib content.
-func renderScriptLibWithOverrides(t *testing.T, overrides map[string]interface{}) string {
-	g := NewGomegaWithT(t)
-	crd := OVNKubernetesConfig.DeepCopy()
-	config := &crd.Spec
-	fillDefaults(config, nil)
-
-	bs := fakeBootstrapResult()
-	bs.OVN = bootstrap.OVNBootstrapResult{
-		ControlPlaneReplicaCount: 1,
-		OVNKubernetesConfig: &bootstrap.OVNConfigBoostrapResult{
-			DpuHostModeLabel:  OVN_NODE_SELECTOR_DEFAULT_DPU_HOST,
-			DpuModeLabel:      OVN_NODE_SELECTOR_DEFAULT_DPU,
-			SmartNicModeLabel: OVN_NODE_SELECTOR_DEFAULT_SMART_NIC,
-			HyperShiftConfig:  &bootstrap.OVNHyperShiftBootstrapResult{Enabled: false},
-			ConfigOverrides:   toStringMap(overrides),
-		},
-	}
-	featureGatesCNO := getDefaultFeatureGates()
-	fakeClient := cnofake.NewFakeClient()
-	objs, _, err := renderOVNKubernetes(config, bs, manifestDirOvn, fakeClient, featureGatesCNO)
-	g.Expect(err).NotTo(HaveOccurred())
-	return extractOVNScriptLib(g, objs)
-}
-
-// helper to convert map[string]interface{} -> map[string]string for overrides
-func toStringMap(in map[string]interface{}) map[string]string {
-	if in == nil {
-		return nil
-	}
-	out := make(map[string]string, len(in))
-	for k, v := range in {
-		out[k] = fmt.Sprintf("%v", v)
-	}
-	return out
-}
-
 // checkDaemonsetAnnotation check that all the daemonset have the annotation with the
 // same key and value
 func checkDaemonsetAnnotation(g *WithT, objs []*uns.Unstructured, key, value string) bool {
@@ -4284,6 +4280,7 @@ func TestRenderOVNKubernetes_AdvertisedUDNIsolationModeOverride(t *testing.T) {
 	})
 }
 
+<<<<<<< HEAD
 // TestOVNKubernetesDpuHostMode comprehensively tests all DPU host mode functionality
 func TestOVNKubernetesDpuHostMode(t *testing.T) {
 	g := NewGomegaWithT(t)
@@ -4371,10 +4368,31 @@ func TestOVNKubernetesDpuHostMode(t *testing.T) {
 		}
 
 		return bootstrapResult
+=======
+func TestOVNKubernetesScriptLibGatewayInterface(t *testing.T) {
+	g := NewGomegaWithT(t)
+
+	testCases := []struct {
+		name                     string
+		ovnNodeMode              string
+		expectedGatewayInterface string
+	}{
+		{
+			name:                     "dpu-host mode uses derive-from-mgmt-port",
+			ovnNodeMode:              "dpu-host",
+			expectedGatewayInterface: "derive-from-mgmt-port",
+		},
+		{
+			name:                     "non-dpu-host mode uses br-ex",
+			ovnNodeMode:              "full",
+			expectedGatewayInterface: "br-ex",
+		},
+>>>>>>> parent of c17dba59f (MGMT-21485: Enable dpu-host mode that matches DPF requirements)
 	}
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
+<<<<<<< HEAD
 			// Test 1: Full manifest rendering with DPU detection
 			t.Run("Full manifest rendering", func(t *testing.T) {
 
@@ -4493,6 +4511,74 @@ func TestOVNKubernetesDpuHostMode(t *testing.T) {
 			})
 
 			t.Logf("✅ %s: All DPU host functionality correctly validated", tc.name)
+=======
+			// Create render data
+			data := render.MakeRenderData()
+			data.Data["OVN_NODE_MODE"] = tc.ovnNodeMode
+			data.Data["OVN_GATEWAY_MODE"] = "shared"
+
+			// Set all required template variables for 008-script-lib.yaml
+			data.Data["ReleaseVersion"] = "4.15.0"
+			data.Data["OVNPolicyAuditDestination"] = "null"
+			data.Data["OVNPolicyAuditSyslogFacility"] = "local0"
+			data.Data["OVN_LOG_PATTERN_CONSOLE"] = "%D{%Y-%m-%dT%H:%M:%S.###Z}|%05N|%c%T|%p|%m"
+			data.Data["NorthdThreads"] = "1"
+			data.Data["OVNPolicyAuditMaxFileSize"] = "50"
+			data.Data["OVNPolicyAuditMaxLogFiles"] = "5"
+			data.Data["OVN_NB_INACTIVITY_PROBE"] = "60000"
+			data.Data["OVN_NORTHD_BACKOFF_MS"] = "300"
+			data.Data["PlatformType"] = "AWS"
+			data.Data["OVN_CONTROLLER_INACTIVITY_PROBE"] = "30000"
+			data.Data["GenevePort"] = "8061"
+			data.Data["OVNHybridOverlayVXLANPort"] = ""
+			data.Data["OVN_MULTI_NETWORK_ENABLE"] = "false"
+			data.Data["OVN_NETWORK_SEGMENTATION_ENABLE"] = "false"
+			data.Data["OVN_ROUTE_ADVERTISEMENTS_ENABLE"] = "false"
+			data.Data["OVN_OBSERVABILITY_ENABLE"] = "false"
+			data.Data["OVN_MULTI_NETWORK_POLICY_ENABLE"] = "false"
+			data.Data["OVN_ADMIN_NETWORK_POLICY_ENABLE"] = "false"
+			data.Data["DNS_NAME_RESOLVER_ENABLE"] = "false"
+			data.Data["IP_FORWARDING_MODE"] = "Restricted"
+			data.Data["NETWORK_NODE_IDENTITY_ENABLE"] = "false"
+			data.Data["NodeIdentityCertDuration"] = "24h"
+			data.Data["V4JoinSubnet"] = ""
+			data.Data["V6JoinSubnet"] = ""
+			data.Data["V4MasqueradeSubnet"] = ""
+			data.Data["V6MasqueradeSubnet"] = ""
+			data.Data["V4TransitSwitchSubnet"] = ""
+			data.Data["V6TransitSwitchSubnet"] = ""
+			data.Data["OVNPolicyAuditRateLimit"] = "20"
+			data.Data["IsNetworkTypeLiveMigration"] = false
+			data.Data["OVNIPsecEnable"] = false
+			data.Data["OVNIPsecEncap"] = "Auto"
+			data.Data["OVN_PRE_CONF_UDN_ADDR_ENABLE"] = false
+			data.Data["AdvertisedUDNIsolationMode"] = ""
+
+			// Render the script-lib template
+			scriptLibPath := "../../bindata/network/ovn-kubernetes/common/008-script-lib.yaml"
+			objs, err := render.RenderTemplate(scriptLibPath, &data)
+			g.Expect(err).NotTo(HaveOccurred(), "Template rendering should succeed for %s", tc.name)
+			g.Expect(objs).To(HaveLen(1), "Should render exactly one object")
+
+			// Verify it's a ConfigMap with the expected name
+			obj := objs[0]
+			g.Expect(obj.GetKind()).To(Equal("ConfigMap"))
+			g.Expect(obj.GetName()).To(Equal("ovnkube-script-lib"))
+
+			// Extract the script content from the ConfigMap
+			scriptData, found, err := uns.NestedString(obj.Object, "data", "ovnkube-lib.sh")
+			g.Expect(err).NotTo(HaveOccurred())
+			g.Expect(found).To(BeTrue(), "Should find ovnkube-lib.sh in ConfigMap data")
+
+			// Validate gateway interface assignment
+			expectedGatewayAssignment := fmt.Sprintf("gateway_interface=%s", tc.expectedGatewayInterface)
+			g.Expect(scriptData).To(ContainSubstring(expectedGatewayAssignment),
+				"Script should contain correct gateway interface assignment for %s mode", tc.ovnNodeMode)
+
+			// Validate that gateway_mode_flags uses the variable
+			g.Expect(scriptData).To(ContainSubstring("--gateway-interface ${gateway_interface}"),
+				"Script should use gateway_interface variable in gateway_mode_flags")
+>>>>>>> parent of c17dba59f (MGMT-21485: Enable dpu-host mode that matches DPF requirements)
 		})
 	}
 }
